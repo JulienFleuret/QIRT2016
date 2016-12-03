@@ -70,10 +70,19 @@ enum
     BLOCK_SIZE=1024
 };
 
+// This function display a matrix of any type.
+// If the type of the input matrix is not unsigned integer 8 bits per elements then it's normalize to an unsigned integer 8 bits per elements.
+//
+// img : cv::Mat, cv::UMat, cv::MatExpr : image to display.
+//
 void show(const cv::String& name,cv::InputArray img);
 
 // UGLY
 
+// This function display a matrix of any type.
+// It work the same way as the previous one exept for the normalization.
+// Rather than normalize between the min and max values of the input matrix the normalization is processd between the min and max values of the  arguments.
+//
 void show(const cv::String& str,const cv::Mat& in,const double& min,const double& max);
 
 inline void show(const cv::String& str,const cv::Mat& in,const cv::Vec2d& min_max)
@@ -83,46 +92,49 @@ inline void show(const cv::String& str,const cv::Mat& in,const cv::Vec2d& min_ma
 
 //
 
+// Return the dynamic range scale for the specified type e.g.  256 for uchar, 65536 for ushort.
 template<class _Ty>
 std::intmax_t get_range();
 
+// Return the dynamic range scale for the specified flag e.g.  256 for CV_8U, 65536 for CV_16U.
 template<int flag>
 inline std::intmax_t get_range_from_flag(){ return get_range<typename policy::flag2type<flag>::value_type>();}
 
 
-enum
-{
-    SWAP_SRC,
-    AS_IS=2
-};
-
-void morphological_hole_filling(cv::InputArray _src, cv::OutputArray _dst, cv::InputArray struct_elem = cv::noArray(), const int &ivt = AS_IS);
-
-namespace hal
-{
-
-void morphological_hole_filling_8u(const cv::Mat1b& _src,const cv::Mat1b& _dst,const cv::Mat1b& struct_elem,const int& ivt);
-void morphological_hole_filling_8s(const cv::Mat_<schar>& _src,const cv::Mat_<schar>& _dst,const cv::Mat1b& struct_elem,const int& ivt);
-
-void morphological_hole_filling_16u(const cv::Mat1w& _src,const cv::Mat1w& _dst,const cv::Mat1b& struct_elem,const int& ivt);
-void morphological_hole_filling_16s(const cv::Mat1s& _src,const cv::Mat1s& _dst,const cv::Mat1b& struct_elem,const int& ivt);
-
-void morphological_hole_filling_32s(const cv::Mat1i& _src,const cv::Mat1i& _dst,const cv::Mat1b& struct_elem,const int& ivt);
-void morphological_hole_filling_32f(const cv::Mat1f& _src,const cv::Mat1f& _dst,const cv::Mat1b& struct_elem,const int& ivt);
-
-void morphological_hole_filling_64f(const cv::Mat1d& _src,const cv::Mat1d& _dst,const cv::Mat1b& struct_elem,const int& ivt);
-
-}
-
+// This function implement a hole filling.
+//
+// _src : cv::Mat : one channel matrix of 8 bits per elements unsigned integers.
+//
+// _dst : cv::Mat : one channel matrix of 8 bits per elements unsigned integers.
+//
+// _area : minimum contours area for taking the contour in consideration.
+// Lower than this number the contours is erase.
+//
 void hole_filling(cv::InputArray _src, cv::OutputArray _dst, const int &_area = -1);
 
 
-
+// This function process the list of the pixel values contained in the source image as well as their position.
+//
+// _src : cv::Mat : a matrix of any type and with up to four channels.
+//
+// _dst : cv::Mat : a matrix of size : number of colours x number of channels of the same type as the input image.
+//
+// _map : cv::Mat : a ont channel matrix of signed integer 32 bits per elements of the same size of the image.
+//
+//  Each pixel of _map contain the index of _dst containing the propoer colour in _src.
+//
 void getColours(cv::InputArray _src,cv::OutputArray _dst,cv::OutputArray _map = cv::noArray());
 
+// This function process randomly for each intensity present on the source image a colour to associate with.
+//
+// _src : cv::Mat : a one channel matrix of any type.
+//
+// _dst : cv::Mat : a three channels matrix of unsigned 8 bis per elements integers.
+//
 void apply_random_colours(cv::InputArray _src,cv::OutputArray _dst);
 
 
+// This class provide an easy to use way to measure the performance of any algorithm.
 class timer_t
 {
 private:

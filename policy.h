@@ -55,6 +55,9 @@
 
 #include <opencv2/core.hpp>
 
+
+// The following structe is helpfull for determine a datatype from an OpenCV's flag.
+
 namespace policy
 {
 

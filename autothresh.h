@@ -12,7 +12,7 @@
 // @Authors
 //    Julien FLEURET, julien.fleuret.1@ulaval.ca
 //
-// This is the code related to the paper : "A Real Time Animal Detection And Segmentation Algorithm For IRT Images In Indoor Environments"
+// This is the code related to the paper : "A Real Time Animal Detection And Segmentation Algorithm For IRT Images In Indoor Environments".
 //
 // Redistribution and use in source and binary forms, with or without modification,
 // are permitted provided that the following conditions are met:
@@ -63,8 +63,22 @@
 namespace autothresh
 {
 
+// This function process the Otsu's criterion and return the optimal threshold value.
+//
+// in : cv::Mat : one channel matrix : the supported type must be either signed or unsigned 8 bit per element integer or signed or unsigned 16 bits per elements integer.
+//
+// dtype : parameter to set to the flag representative the range scale of the input matrix in case wehere it's type higher than CV_16U.
+// The parameter "dtype" will be ignored otherwise.
+//
 double otsu(cv::InputArray in,const int& dtype = -1);
 
+// This function process the Triangle's criterion and return the optimal threshold value.
+//
+// in : cv::Mat : one channel matrix : the supported type must be either signed or unsigned 8 bit per element integer or signed or unsigned 16 bits per elements integer.
+//
+// dtype : parameter to set to the flag representative the range scale of the input matrix in case wehere it's type higher than CV_16U.
+// The parameter "dtype" will be ignored otherwise.
+//
 double triangle(cv::InputArray in,const int& dtype = -1);
 
 }

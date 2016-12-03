@@ -106,7 +106,10 @@ void create_output_filenames(const std::vector<fs::path>& src,std::vector<fs::pa
 void split(const cv::String& str,std::vector<std::string>& exts);
 
 
-class meta_image
+// The aim the class "meta_image" was to store an several images as in order process all of them in one time and them resplit it.
+// Such thing may improve the processing on devices like GPU when we work with small size images.
+
+class [[deprecated]] meta_image
 {
 
 private:

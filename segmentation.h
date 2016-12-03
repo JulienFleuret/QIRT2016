@@ -57,13 +57,70 @@
 
 namespace segmentation
 {
+
+// This function clusterize the input image in three clusters (background, foreground and false detection).
+//
+// _src : cv::Mat : one channel matrix of any type.
+//
+// _background : cv::Mat : one channel matrix of the same type and size as the input one.
+//
+// _foreground : cv::Mat : one channel matrix of the same type and size as the input one.
+//
+// _fd : cv::Mat : one channel matrix of the type type and size as the input one.
+//
+// _contours : cv::Mat : one channel matrix of the same type and size as the input one.
+//
+// _map : cv::Mat : a three channel matrix where each channel represent the pixel associated with each cluster.
+//
+//
+// Note :
+//
+// _background return a matrix where the pixel that have been associated with the background are set to 0 the others keep the original intensity.
+//
+// _foreground : same as background for the pixels associated with the foreground.
+//
+// _fd : same as _foreground and _background for the pixels remaining.
+//
+// _contour is a side discovery however the output is not always interresting neither a properly contour. USE WITH CAUTION.
+//
+//
 // Real time.
-cv::Vec2d get_structure_of_interest(cv::InputArray _src, cv::OutputArray _background, cv::OutputArray _foreground,cv::OutputArray _fp, cv::OutputArray _contours,cv::OutputArray _map);
+cv::Vec2d get_structure_of_interest(cv::InputArray _src, cv::OutputArray _background, cv::OutputArray _foreground,cv::OutputArray _fd, cv::OutputArray _contours,cv::OutputArray _map);
 
+// This function call the previous function and then refine the result using a spatial clustering.
+//
+// _src : cv::Mat : one channel matrix of any type.
+//
+// _background : cv::Mat : one channel matrix of the same type and size as the input one.
+//
+// _foreground : cv::Mat : one channel matrix of the same type and size as the input one.
+//
+// _fd : cv::Mat : one channel matrix of the type type and size as the input one.
+//
+// _contours : cv::Mat : one channel matrix of the same type and size as the input one.
+//
+// _map : cv::Mat : a three channel matrix where each channel represent the pixel associated with each cluster.
+//
+//
 // Not real time at all.
-cv::Vec2d get_structure_of_interest_refined(cv::InputArray _src, cv::OutputArray _background, cv::OutputArray _foreground,cv::OutputArray _fp, cv::OutputArray _contours,cv::OutputArray _map);
+cv::Vec2d get_structure_of_interest_refined(cv::InputArray _src, cv::OutputArray _background, cv::OutputArray _foreground,cv::OutputArray _fd, cv::OutputArray _contours,cv::OutputArray _map);
 
-void smooth(cv::InputArray _src,cv::InputArray _map,cv::OutputArray _foreground,cv::OutputArray background,cv::OutputArray false_positive,cv::OutputArray new_map);
+
+// This function will refine the _map argument removing the minor regions what may exist and then reprocess the foreground, background and false positive image.
+//
+// _src : cv::Mat : one channel matrix of any type.
+//
+// _backgroudn : cv::Mat : one channel matrix of unsigned integer either 8 bits or 32 bits per elements.
+//
+// _background : cv::Mat : one channel matrix of the same type and size as the input one.
+//
+// _foreground : cv::Mat : one channel matrix of the same type and size as the input one.
+//
+// false_detection : cv::Mat : one channel matrix of the type type and size as the input one.
+//
+// _new_map : cv::Mat : a three channel matrix where each channel represent the pixel associated with each cluster.
+//
+void smooth(cv::InputArray _src,cv::InputArray _map,cv::OutputArray _foreground,cv::OutputArray _background,cv::OutputArray _false_detection,cv::OutputArray _new_map);
 
 }
 

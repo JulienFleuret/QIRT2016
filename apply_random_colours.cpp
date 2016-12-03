@@ -206,7 +206,7 @@ void apply_random_colours(cv::InputArray _src, cv::OutputArray _dst)
     if(_src.empty())
     {
         _dst.create(_src.size(),_src.type());
-        _dst.setTo(cv::Scalar::all(128));
+        _dst.setTo(cv::Scalar::all(0x80));
     }
 
 

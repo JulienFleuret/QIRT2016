@@ -56,12 +56,34 @@
 
 #include <opencv2/core.hpp>
 
+// This code is the implementation of the article :
 //@article{ding2009efficient,
 //  title={An efficient image segmentation technique by fast scanning and adaptive merging},
 //  author={Ding, Jian-Jiun and Kuo, CJ and Hong, WC},
 //  journal={CVGIP, Aug},
 //  year={2009}
 //}
+//
+// _src : cv::Mat : matrix of any supported type with up to channels channels.
+//
+// _dst : cv::Mat : one channel matrix of 32 bits per elements signed integers.
+//
+// _stats : cv::Mat : one channel matrix of 32 bits per elements signed integers.
+//
+// _pts : std::vector<cv::Mat2i>, std::vector<std::vector<cv::Vec2i> > : vector containing the 2D coordinates of the points associate to each cluster.
+//
+// thresh : cv::Scalar : minimum threshold on each channels for create a new cluster.
+//
+// delta : int : minimum number of points for a cluster to exist.
+//
+//
+// Additionnal informations :
+//
+// _dst has the same size as the source image an contain for each pixel the cluster associate. Note the cluster index start at 1.
+//
+// _stats have the same structure as the one of the function cv::connectedComponentsWithStats i.e. _stats if a matrix of size : number of cluster x 5.
+// For each row the first four columns represents the x, y, height and width of the rectangular bounding box contaning cluster, the last column is total area convered by the cluster (not the bounding box).
+//
 
 namespace regions
 {

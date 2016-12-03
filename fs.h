@@ -86,9 +86,31 @@ namespace fs = bfs;
 namespace exp_fs
 {
 
+// This function will list all the files and folders at a specified path.
+// If the parameter "extensions" is set so only the files the extension(s) will be take in consideration.
+//
+// path : path where are the files and subfolders to list.
+//
+// files : files contained at the specified path.
+//
+// extentions : extentions to keep.
+//
 void content(const fs::path& path,std::vector<fs::path>& files,const std::vector<std::string>& extentions = std::vector<std::string>());
 
+// This function return a list of the folders contained int the input arguments.
+//
+// in : list of files and folders.
+//
+// out : list of folders.
+//
 void get_files(const std::vector<fs::path>& in,std::vector<fs::path>& out);
+
+// This function return a list of the files contained int the input arguments.
+//
+// in : list of files and folders.
+//
+// out : list of files.
+//
 void get_folders(const std::vector<fs::path>& in,std::vector<fs::path>& out);
 
 
