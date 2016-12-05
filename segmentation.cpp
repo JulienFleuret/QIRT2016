@@ -144,7 +144,7 @@ private:
 
 
 template<class _Ty>
-inline void estimate_bd_fs(cv::Mat& src,cv::Mat& bd,cv::Mat& fd)
+inline void estimate_background_foregrounds(cv::Mat& src,cv::Mat& bd,cv::Mat& fd)
 {
     bd = cv::Mat::zeros(src.size(),src.type());
 
@@ -595,7 +595,7 @@ cv::Vec2d worker(cv::InputArray& _src,cv::OutputArray& _background,cv::OutputArr
 
     cv::dilate(frgd,frgd,struct_elem,ul,4);
 
-    estimate_bd_fs<_Ty>(src,bckgd,frgd);
+    estimate_background_foregrounds<_Ty>(src,bckgd,frgd);
 
 
 
